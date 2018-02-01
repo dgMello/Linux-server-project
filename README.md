@@ -26,6 +26,10 @@ Software Installed on Linux Server.
   6. oauth2client
   
     $ pip install oauth2client
+  
+  7. Git
+    
+    $ sudo apt-get install git
 
 Configuration changes made
 
@@ -58,7 +62,97 @@ Configuration changes made
     Change 22 to 2200
     
   6. Add grader user and give sudo access
+  
     $ sudo adduser grader
     $ sudo usermod -aG sudo grader
     
- 7. 
+  7. Configure timezone to UTC.
+ 
+    $ sudo dpkg-reconfigure tzdata
+    Scroll down till you get to UTC
+    
+  8. Configure PostgreSQL
+  
+    $ sudo -i -u postgres
+    $ psql
+    # CREATE USER catalog with PASSWORD 'catalog';
+    # GRANT ALL PRIVILEGES ON catalog TO catalog;
+    
+  
+ 9. Create directory for project.
+  
+    $ cd /var/www
+    $ sudo mkdir python
+    $ cd python
+    $ sudo mkdir catalogApp
+    $ cd catalogApp
+    $ sudo mkdir catalog
+   
+  10. Pull project from github.
+    
+    $ cd /var/www/python/catalogApp/catalog
+    $ sudo git init
+    $ sudo git pull https://github.com/heisenfraud/catalogServerApp
+    
+  11.  Setup flask virtual environment.
+  
+    $ cd /var/www/python/catalogApp/catalog
+    $ sudo pip install virtualenv
+    $ sudo apt-get install python-virtualenv
+    $ virtualenv venv
+    $ . venv/bin/activate
+    $ pip install Flask
+    $ deactivate
+    
+  12. Configure /etc/apache2/sites-enabled/000-default.conf file
+  
+    $ sudo nano /etc/apache2/sites-enabled/000-default.conf
+    
+    All the following text
+    
+    <VirtualHost *:80>
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/
+
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+
+        WSGIDaemonProcess catalog
+        WSGIScriptAlias / /var/www/python/catalogApp/catalog.wsgi
+
+        <Directory /var/www/python/catalogApp/catalog/>
+            WSGIProcessGroup catalog
+            WSGIApplicationGroup %{GLOBAL}
+            Order deny,allow
+            Allow from all
+        </Directory>
+
+    </VirtualHost>
+
+    # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+    
+  13. Create WSGI file for application.
+    
+    $ cd /var/www/python/catalogApp
+    $ sudo nano /var/www/python/catalogApp/catalog.wsgi
+    
+    Add the following to the file.
+    
+      import sys
+      import logging
+      logging.basicConfig(stream=sys.stderr)
+      sys.path.insert(0,'/var/www/python/catalogApp')
+
+      from catalog import app as application
+      application.secret_key='super_secret_key'
+
+
+Setting up application.
+
+1. Go into catalog directory and create database.
+  $ cd /var/python/catalogApp/catalog
+  $ sudo python categoryCreator.py
+    
