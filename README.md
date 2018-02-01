@@ -54,6 +54,7 @@ Configuration changes made
     $ sudo ufw allow 2200/tcp
     $ sudo ufw allow www
     $ sudo ufw allow 123/udp
+    $ sudo ufw deny 22
     $ sudo ufw enable
     
   5. Modify sshd_config.
