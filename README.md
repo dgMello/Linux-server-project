@@ -78,8 +78,7 @@ Configuration changes made
     # CREATE USER catalog with PASSWORD 'catalog';
     # GRANT ALL PRIVILEGES ON catalog TO catalog;
     
-  
- 9. Create directory for project.
+  9. Create directory for project.
   
     $ cd /var/www
     $ sudo mkdir python
@@ -152,7 +151,7 @@ Configuration changes made
 
 Setting up application.
 
-1. Go into catalog directory and create database.
-  $ cd /var/python/catalogApp/catalog
-  $ sudo python categoryCreator.py
+  1. Go into catalog directory and create database.
+    $ cd /var/python/catalogApp/catalog
+    $ sudo python categoryCreator.py
     
