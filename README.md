@@ -150,8 +150,9 @@ Configuration changes made
 
 
 Setting up application.
-
+  
   1. Go into catalog directory and create database.
+    
     $ cd /var/python/catalogApp/catalog
     $ sudo python categoryCreator.py
     
