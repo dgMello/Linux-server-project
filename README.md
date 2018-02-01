@@ -1,6 +1,7 @@
 # Linux-server-project
 Udacity Linux server project 
 
+
 IP Address: 52.15.210.193
 SSH Port: 2200
 Website URL http://52.15.210.193/catalog
@@ -155,4 +156,15 @@ Setting up application.
     
     $ cd /var/python/catalogApp/catalog
     $ sudo python categoryCreator.py
-    
+
+Third party resources.
+
+  1. http://flask.pocoo.org/
+  2. https://unix.stackexchange.com
+  3. https://www.postgresql.org/
+  4. https://stackoverflow.com
+  5. https://httpd.apache.org/
+  6. https://discussions.udacity.com
+  
+Author: Doug Mello
+Version: 1.0
